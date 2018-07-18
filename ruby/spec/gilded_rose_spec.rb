@@ -30,6 +30,16 @@ describe GildedRose do
       expect(@gilded_rose.items[4].quality).to eq 80
     end
 
+    it "increases the quality of Aged Brie by 1" do
+      @gilded_rose.update_quality
+      expect(@gilded_rose.items[1].quality).to eq 1
+    end
+
+    it "decreases the sell-in value of Aged Brie by 1" do
+      @gilded_rose.update_quality
+      expect(@gilded_rose.items[1].sell_in).to eq 1
+    end
+
   end
 
 end
