@@ -39,9 +39,19 @@ describe GildedRose do
       expect(@gilded_rose.items[1].sell_in).to eq 1
     end
 
-    it "quality decreases twice as fast when sell-in is less than 0" do
+    it "quality decreases twice as fast when sell-in is less than or equal to 0" do
       11.times { @gilded_rose.update_quality }
       expect(@gilded_rose.items[0].quality).to eq 8
+    end
+
+    it "quality never drops below 0" do
+      7.times { @gilded_rose.update_quality }
+      expect(@gilded_rose.items[2].quality).to eq 0
+    end
+
+    it "quality never rises above 50" do
+      51.times { @gilded_rose.update_quality }
+      expect(@gilded_rose.items[1].quality).to eq 50
     end
   end
 
