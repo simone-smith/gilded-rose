@@ -23,7 +23,6 @@ describe GildedRose do
     end
 
     it "does not change the sell-in or quality of Sulfuras" do
-      @gilded_rose.update_quality
       expect(@gilded_rose.items[3].sell_in).to eq 0
       expect(@gilded_rose.items[3].quality).to eq 80
       expect(@gilded_rose.items[4].sell_in).to eq -1
@@ -40,8 +39,10 @@ describe GildedRose do
       expect(@gilded_rose.items[1].sell_in).to eq 1
     end
 
+    it "quality decreases twice as fast when sell-in is less than 0" do
+      11.times { @gilded_rose.update_quality }
+      expect(@gilded_rose.items[0].quality).to eq 8
+    end
   end
 
 end
-
-items = [Item.new("Aged Brie", 2, 3)]
