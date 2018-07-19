@@ -59,6 +59,20 @@ describe GildedRose do
     end
 
     context "Backstage Passes" do
+      context "when sell-in value is less than 11" do
+        it "quality increases by 3" do
+          5.times { @gilded_rose.update_quality }
+          expect(@gilded_rose.items[5].quality).to eq 25
+        end
+      end
+
+      context "when sell-in value is less than 6" do
+        it "quality increases by 2" do
+          10.times { @gilded_rose.update_quality }
+          expect(@gilded_rose.items[5].quality).to eq 35
+        end
+      end
+
       context "when sell-in value is less than 1" do
         it "quality drops to 0" do
           16.times { @gilded_rose.update_quality }
