@@ -22,6 +22,16 @@ describe GildedRose do
       expect(items[0].name).to eq "foo"
     end
 
+    it "quality decreases by 1 each day" do
+      @gilded_rose.update_quality
+      expect(@gilded_rose.items[0].quality).to eq 19
+    end
+
+    it "sell-in decreases by 1 each day" do
+      @gilded_rose.update_quality
+      expect(@gilded_rose.items[0].sell_in).to eq 9
+    end
+
     it "quality decreases twice as fast when sell-in is less than or equal to 0" do
       11.times { @gilded_rose.update_quality }
       expect(@gilded_rose.items[0].quality).to eq 8
