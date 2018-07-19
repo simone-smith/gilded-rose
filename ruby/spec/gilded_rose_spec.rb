@@ -22,23 +22,6 @@ describe GildedRose do
       expect(items[0].name).to eq "foo"
     end
 
-    it "does not change the sell-in or quality of Sulfuras" do
-      expect(@gilded_rose.items[3].sell_in).to eq 0
-      expect(@gilded_rose.items[3].quality).to eq 80
-      expect(@gilded_rose.items[4].sell_in).to eq -1
-      expect(@gilded_rose.items[4].quality).to eq 80
-    end
-
-    it "increases the quality of Aged Brie by 1" do
-      @gilded_rose.update_quality
-      expect(@gilded_rose.items[1].quality).to eq 1
-    end
-
-    it "decreases the sell-in value of Aged Brie by 1" do
-      @gilded_rose.update_quality
-      expect(@gilded_rose.items[1].sell_in).to eq 1
-    end
-
     it "quality decreases twice as fast when sell-in is less than or equal to 0" do
       11.times { @gilded_rose.update_quality }
       expect(@gilded_rose.items[0].quality).to eq 8
@@ -52,6 +35,36 @@ describe GildedRose do
     it "quality never rises above 50" do
       51.times { @gilded_rose.update_quality }
       expect(@gilded_rose.items[1].quality).to eq 50
+    end
+
+    context "Sulfuras" do
+      it "does not change the sell-in or quality of Sulfuras" do
+        expect(@gilded_rose.items[3].sell_in).to eq 0
+        expect(@gilded_rose.items[3].quality).to eq 80
+        expect(@gilded_rose.items[4].sell_in).to eq -1
+        expect(@gilded_rose.items[4].quality).to eq 80
+      end
+    end
+
+    context "Aged Brie" do
+      it "increases the quality of Aged Brie by 1" do
+        @gilded_rose.update_quality
+        expect(@gilded_rose.items[1].quality).to eq 1
+      end
+
+      it "decreases the sell-in value of Aged Brie by 1" do
+        @gilded_rose.update_quality
+        expect(@gilded_rose.items[1].sell_in).to eq 1
+      end
+    end
+
+    context "Backstage Passes" do
+      context "when sell-in value is less than 1" do
+        it "quality drops to 0" do
+          16.times { @gilded_rose.update_quality }
+          expect(@gilded_rose.items[5].quality).to eq 0
+        end
+      end
     end
   end
 
