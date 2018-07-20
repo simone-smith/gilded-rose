@@ -16,7 +16,7 @@ items = [
   Item.new(name="Conjured Mana Cake", sell_in=3, quality=6), # <-- :O
 ]
 
-days = 20
+days = 50
 if ARGV.size > 0
   days = ARGV[0].to_i + 1
 end
@@ -29,5 +29,5 @@ gilded_rose = GildedRose.new items
     puts item
   end
   puts ""
-  gilded_rose.update_quality
+  gilded_rose.check_item
 end

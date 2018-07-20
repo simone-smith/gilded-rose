@@ -22,29 +22,43 @@ describe GildedRose do
       expect(items[0].name).to eq "foo"
     end
 
-    it "quality decreases by 1 each day" do
+    it "changes the quality according to specific rules for each item" do
       @gilded_rose.check_item
       expect(@gilded_rose.items[0].quality).to eq 19
+      expect(@gilded_rose.items[1].quality).to eq 1
+      expect(@gilded_rose.items[2].quality).to eq 6
+      expect(@gilded_rose.items[3].quality).to eq 80
+      expect(@gilded_rose.items[4].quality).to eq 80
+      expect(@gilded_rose.items[5].quality).to eq 21
+      expect(@gilded_rose.items[6].quality).to eq 51
+      expect(@gilded_rose.items[7].quality).to eq 52
     end
 
-    it "sell-in decreases by 1 each day" do
-      @gilded_rose.check_item
-      expect(@gilded_rose.items[0].sell_in).to eq 9
-    end
+    context "Normal items" do
+      it "quality decreases by 1 each day" do
+        @gilded_rose.check_item
+        expect(@gilded_rose.items[0].quality).to eq 19
+      end
 
-    it "quality decreases twice as fast when sell-in is less than or equal to 0" do
-      11.times { @gilded_rose.check_item }
-      expect(@gilded_rose.items[0].quality).to eq 8
-    end
+      it "sell-in decreases by 1 each day" do
+        @gilded_rose.check_item
+        expect(@gilded_rose.items[0].sell_in).to eq 9
+      end
 
-    it "quality never drops below 0" do
-      7.times { @gilded_rose.check_item }
-      expect(@gilded_rose.items[2].quality).to eq 0
-    end
+      it "quality decreases twice as fast when sell-in is less than or equal to 0" do
+        11.times { @gilded_rose.check_item }
+        expect(@gilded_rose.items[0].quality).to eq 8
+      end
 
-    it "quality never rises above 50" do
-      51.times { @gilded_rose.check_item }
-      expect(@gilded_rose.items[1].quality).to eq 50
+      it "quality never drops below 0" do
+        7.times { @gilded_rose.check_item }
+        expect(@gilded_rose.items[2].quality).to eq 0
+      end
+
+      it "quality never rises above 50" do
+        51.times { @gilded_rose.check_item }
+        expect(@gilded_rose.items[1].quality).to eq 50
+      end
     end
 
     context "Sulfuras" do
