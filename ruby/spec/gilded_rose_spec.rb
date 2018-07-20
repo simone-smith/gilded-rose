@@ -18,32 +18,32 @@ describe GildedRose do
   describe "#update_quality" do
     it "does not change the name" do
       items = [Item.new("foo", 0, 0)]
-      GildedRose.new(items).update_quality()
+      GildedRose.new(items).check_item
       expect(items[0].name).to eq "foo"
     end
 
     it "quality decreases by 1 each day" do
-      @gilded_rose.update_quality
+      @gilded_rose.check_item
       expect(@gilded_rose.items[0].quality).to eq 19
     end
 
     it "sell-in decreases by 1 each day" do
-      @gilded_rose.update_quality
+      @gilded_rose.check_item
       expect(@gilded_rose.items[0].sell_in).to eq 9
     end
 
     it "quality decreases twice as fast when sell-in is less than or equal to 0" do
-      11.times { @gilded_rose.update_quality }
+      11.times { @gilded_rose.check_item }
       expect(@gilded_rose.items[0].quality).to eq 8
     end
 
     it "quality never drops below 0" do
-      7.times { @gilded_rose.update_quality }
+      7.times { @gilded_rose.check_item }
       expect(@gilded_rose.items[2].quality).to eq 0
     end
 
     it "quality never rises above 50" do
-      51.times { @gilded_rose.update_quality }
+      51.times { @gilded_rose.check_item }
       expect(@gilded_rose.items[1].quality).to eq 50
     end
 
@@ -58,12 +58,12 @@ describe GildedRose do
 
     context "Aged Brie" do
       it "increases the quality of Aged Brie by 1" do
-        @gilded_rose.update_quality
+        @gilded_rose.check_item
         expect(@gilded_rose.items[1].quality).to eq 1
       end
 
       it "decreases the sell-in value of Aged Brie by 1" do
-        @gilded_rose.update_quality
+        @gilded_rose.check_item
         expect(@gilded_rose.items[1].sell_in).to eq 1
       end
     end
@@ -71,21 +71,21 @@ describe GildedRose do
     context "Backstage Passes" do
       context "when sell-in value is less than 11" do
         it "quality increases by 3" do
-          5.times { @gilded_rose.update_quality }
+          5.times { @gilded_rose.check_item }
           expect(@gilded_rose.items[5].quality).to eq 25
         end
       end
 
       context "when sell-in value is less than 6" do
         it "quality increases by 2" do
-          10.times { @gilded_rose.update_quality }
+          10.times { @gilded_rose.check_item }
           expect(@gilded_rose.items[5].quality).to eq 35
         end
       end
 
       context "when sell-in value is less than 1" do
         it "quality drops to 0" do
-          16.times { @gilded_rose.update_quality }
+          16.times { @gilded_rose.check_item }
           expect(@gilded_rose.items[5].quality).to eq 0
         end
       end

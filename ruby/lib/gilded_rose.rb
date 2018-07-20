@@ -1,3 +1,7 @@
+require_relative 'aged_brie'
+require_relative 'sulfuras'
+require_relative 'backstage_passes'
+
 class GildedRose
 
   attr_reader :items
@@ -6,62 +10,33 @@ class GildedRose
     @items = items
   end
 
-  def decrement_sell_in(item)
-    item.sell_in -= 1
-  end
-
-  def decrement_quality(item)
-    item.quality -= 1
-  end
-
-  def increment_quality(item)
-    item.quality += 1
-  end
-
-  def update_quality()
+  def check_item
     @items.each do |item|
-      if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert"
-        if item.quality > 0
-          if item.name != "Sulfuras, Hand of Ragnaros"
-            decrement_quality(item)
-          end
-        end
-      else
-        if item.quality < 50
-          increment_quality(item)
-          if item.name == "Backstage passes to a TAFKAL80ETC concert"
-            if item.sell_in < 11
-              if item.quality < 50
-                increment_quality(item)
-              end
-            end
-            if item.sell_in < 6
-              if item.quality < 50
-                increment_quality(item)
-              end
-            end
-          end
-        end
-      end
-      if item.name != "Sulfuras, Hand of Ragnaros"
-        decrement_sell_in(item)
-      end
-      if item.sell_in < 0
-        if item.name != "Aged Brie"
-          if item.name != "Backstage passes to a TAFKAL80ETC concert"
-            if item.quality > 0
-              if item.name != "Sulfuras, Hand of Ragnaros"
-                decrement_quality(item)
-              end
-            end
-          else
-            item.quality = 0
-          end
+      case item.name
+        when "Sulfuras, Hand of Ragnaros"
+          sulfuras = Sulfuras.new(item)
+          sulfuras.update_quality
+        when "Aged Brie"
+          aged_brie = AgedBrie.new(item)
+          aged_brie.update_quality
+        when "Backstage passes to a TAFKAL80ETC concert"
+          backstage_passes = BackstagePasses.new(item)
+          backstage_passes.update_quality
         else
-          if item.quality < 50
-            increment_quality(item)
-          end
-        end
+          update_quality(item)
+      end
+    end
+  end
+
+  def update_quality(item)
+    if item.sell_in > 0
+      unless item.quality == 0
+        item.quality -= 1
+      end
+      item.sell_in -= 1
+    else
+      unless item.quality <= 1
+        item.quality -= 2
       end
     end
   end
