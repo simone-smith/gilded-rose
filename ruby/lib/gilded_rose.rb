@@ -1,6 +1,7 @@
 require_relative 'aged_brie'
 require_relative 'sulfuras'
 require_relative 'backstage_passes'
+require_relative 'regular_item'
 
 class GildedRose
 
@@ -19,23 +20,11 @@ class GildedRose
   def check_item
     @items.each do |item|
       if SPECIAL_ITEMS[item.name]
-        SPECIAL_ITEMS[item.name].new(item).update_quality
+        item = SPECIAL_ITEMS[item.name].new(item)
       else
-        update_quality(item)
+        item = RegularItem.new(item)
       end
-    end
-  end
-
-  def update_quality(item)
-    if item.sell_in > 0
-      unless item.quality == 0
-        item.quality -= 1
-      end
-      item.sell_in -= 1
-    else
-      unless item.quality <= 1
-        item.quality -= 2
-      end
+      item.update_quality
     end
   end
 end
