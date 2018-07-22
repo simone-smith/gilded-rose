@@ -4,6 +4,6 @@ class Sulfuras
     @item = item
   end
 
-  def update_quality
+  def update
   end
 end

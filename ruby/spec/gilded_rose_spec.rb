@@ -15,7 +15,7 @@ describe GildedRose do
     @gilded_rose = GildedRose.new([@dexterity_vest, @aged_brie, @elixir, @sulfuras1, @sulfuras2, @backstage_passes1, @backstage_passes2, @backstage_passes3])
   end
 
-  describe "#update_quality" do
+  describe "#check_item" do
     it "does not change the name" do
       items = [Item.new("foo", 0, 0)]
       GildedRose.new(items).check_item

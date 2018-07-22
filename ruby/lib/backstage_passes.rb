@@ -7,7 +7,7 @@ class BackstagePasses
   end
 
 # MAKE SURE THE QUALITY CAN'T GO ABOVE 50!!
-  def update_quality
+  def update
     if @item.sell_in < 1
       @item.quality = 0
     elsif @item.sell_in <= 5

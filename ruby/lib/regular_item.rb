@@ -3,7 +3,7 @@ class RegularItem
     @item = item
   end
 
-  def update_quality
+  def update
     if @item.sell_in > 0
       unless @item.quality == 0
         @item.quality -= 1

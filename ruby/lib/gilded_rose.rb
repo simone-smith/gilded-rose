@@ -24,7 +24,7 @@ class GildedRose
       else
         item = RegularItem.new(item)
       end
-      item.update_quality
+      item.update
     end
   end
 end

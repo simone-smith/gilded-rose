@@ -5,7 +5,7 @@ class AgedBrie
   end
 
 # quality needs to increase twice as fast after sell-in date has passed!
-  def update_quality
+  def update
     unless @item.quality == 50
       @item.quality += 1
     end
