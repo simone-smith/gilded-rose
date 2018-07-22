@@ -1,3 +1,4 @@
+require_relative 'item'
 require_relative 'aged_brie'
 require_relative 'sulfuras'
 require_relative 'backstage_passes'
@@ -26,19 +27,5 @@ class GildedRose
       end
       item.update
     end
-  end
-end
-
-class Item
-  attr_accessor :name, :sell_in, :quality
-
-  def initialize(name, sell_in, quality)
-    @name = name
-    @sell_in = sell_in
-    @quality = quality
-  end
-
-  def to_s()
-    "#{@name}, #{@sell_in}, #{@quality}"
   end
 end
