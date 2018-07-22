@@ -30,8 +30,8 @@ describe GildedRose do
       expect(@gilded_rose.items[3].quality).to eq 80
       expect(@gilded_rose.items[4].quality).to eq 80
       expect(@gilded_rose.items[5].quality).to eq 21
-      expect(@gilded_rose.items[6].quality).to eq 51
-      expect(@gilded_rose.items[7].quality).to eq 52
+      expect(@gilded_rose.items[6].quality).to eq 50
+      expect(@gilded_rose.items[7].quality).to eq 50
     end
 
     context "Normal items" do
@@ -88,6 +88,12 @@ describe GildedRose do
     end
 
     context "Backstage Passes" do
+
+      it "quality never rises above 50" do
+        3.times { @gilded_rose.check_item }
+        expect(@gilded_rose.items[6].quality).to eq 50
+      end
+
       context "when sell-in value is less than 11" do
         it "quality increases by 3" do
           5.times { @gilded_rose.check_item }
