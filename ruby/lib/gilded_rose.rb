@@ -2,6 +2,7 @@ require_relative 'item'
 require_relative 'aged_brie'
 require_relative 'sulfuras'
 require_relative 'backstage_passes'
+require_relative 'conjured'
 require_relative 'regular_item'
 
 class GildedRose
@@ -9,7 +10,8 @@ class GildedRose
   SPECIAL_ITEMS = {
     "Sulfuras, Hand of Ragnaros" => Sulfuras,
     "Aged Brie" => AgedBrie,
-    "Backstage passes to a TAFKAL80ETC concert" => BackstagePasses
+    "Backstage passes to a TAFKAL80ETC concert" => BackstagePasses,
+    "Conjured" => Conjured
   }
 
   attr_reader :items

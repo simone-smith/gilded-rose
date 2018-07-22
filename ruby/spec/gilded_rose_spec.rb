@@ -11,8 +11,9 @@ describe GildedRose do
     @backstage_passes1 = Item.new("Backstage passes to a TAFKAL80ETC concert", 15, 20)
     @backstage_passes2 = Item.new("Backstage passes to a TAFKAL80ETC concert", 10, 49)
     @backstage_passes3 = Item.new("Backstage passes to a TAFKAL80ETC concert", 5, 49)
+    @conjured = Item.new("Conjured", 3, 6)
 
-    @gilded_rose = GildedRose.new([@dexterity_vest, @aged_brie, @elixir, @sulfuras1, @sulfuras2, @backstage_passes1, @backstage_passes2, @backstage_passes3])
+    @gilded_rose = GildedRose.new([@dexterity_vest, @aged_brie, @elixir, @sulfuras1, @sulfuras2, @backstage_passes1, @backstage_passes2, @backstage_passes3, @conjured])
   end
 
   describe "#check_item" do
@@ -119,6 +120,17 @@ describe GildedRose do
         end
       end
     end
-  end
+    
+    context "Conjured" do
+      it "quality decreases twice as fast as normal items" do
+        @gilded_rose.check_item
+        expect(@gilded_rose.items[8].quality).to eq 4
+      end
 
+      it "quality never drops below 0" do
+        5.times { @gilded_rose.check_item }
+        expect(@gilded_rose.items[8].quality).to eq 0
+      end
+    end
+  end
 end
