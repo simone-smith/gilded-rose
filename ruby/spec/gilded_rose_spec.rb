@@ -88,10 +88,14 @@ describe GildedRose do
     end
 
     context "Backstage Passes" do
-
       it "quality never rises above 50" do
         3.times { @gilded_rose.check_item }
         expect(@gilded_rose.items[6].quality).to eq 50
+      end
+
+      it "quality never drops below 0" do
+        14.times { @gilded_rose.check_item }
+        expect(@gilded_rose.items[7].quality).to eq 0
       end
 
       context "when sell-in value is less than 11" do
