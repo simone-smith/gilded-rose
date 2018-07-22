@@ -4,6 +4,12 @@ require_relative 'backstage_passes'
 
 class GildedRose
 
+  SPECIAL_ITEMS = {
+    "Sulfuras, Hand of Ragnaros" => Sulfuras,
+    "Aged Brie" => AgedBrie,
+    "Backstage passes to a TAFKAL80ETC concert" => BackstagePasses
+  }
+
   attr_reader :items
 
   def initialize(items)
@@ -12,18 +18,10 @@ class GildedRose
 
   def check_item
     @items.each do |item|
-      case item.name
-        when "Sulfuras, Hand of Ragnaros"
-          sulfuras = Sulfuras.new(item)
-          sulfuras.update_quality
-        when "Aged Brie"
-          aged_brie = AgedBrie.new(item)
-          aged_brie.update_quality
-        when "Backstage passes to a TAFKAL80ETC concert"
-          backstage_passes = BackstagePasses.new(item)
-          backstage_passes.update_quality
-        else
-          update_quality(item)
+      if SPECIAL_ITEMS[item.name]
+        SPECIAL_ITEMS[item.name].new(item).update_quality
+      else
+        update_quality(item)
       end
     end
   end
