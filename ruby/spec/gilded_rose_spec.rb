@@ -71,14 +71,19 @@ describe GildedRose do
     end
 
     context "Aged Brie" do
-      it "increases the quality of Aged Brie by 1" do
+      it "increases the quality by 1" do
         @gilded_rose.check_item
         expect(@gilded_rose.items[1].quality).to eq 1
       end
 
-      it "decreases the sell-in value of Aged Brie by 1" do
+      it "decreases the sell-in value by 1" do
         @gilded_rose.check_item
         expect(@gilded_rose.items[1].sell_in).to eq 1
+      end
+
+      it "increases the quality by 2 after the sell-in date has passed" do
+        3.times{ @gilded_rose.check_item }
+        expect(@gilded_rose.items[1].quality).to eq 4
       end
     end
 
