@@ -28,7 +28,12 @@
 #
 # As you become a better developer you will remove or amend this file according
 # to what you think good code should look like.
-#
+
+AllCops:
+  Exclude:
+    - 'texttest_fixture.rb'
+    - './lib/gilded_rose_original.rb'
+
 # Physical Code Size
 # ==================
 #

@@ -66,7 +66,7 @@ describe GildedRose do
       it "does not change the sell-in or quality of Sulfuras" do
         expect(@gilded_rose.items[3].sell_in).to eq 0
         expect(@gilded_rose.items[3].quality).to eq 80
-        expect(@gilded_rose.items[4].sell_in).to eq -1
+        expect(@gilded_rose.items[4].sell_in).to eq(-1)
         expect(@gilded_rose.items[4].quality).to eq 80
       end
     end
@@ -83,7 +83,7 @@ describe GildedRose do
       end
 
       it "increases the quality by 2 after the sell-in date has passed" do
-        3.times{ @gilded_rose.check_item }
+        3.times { @gilded_rose.check_item }
         expect(@gilded_rose.items[1].quality).to eq 4
       end
     end
@@ -120,7 +120,7 @@ describe GildedRose do
         end
       end
     end
-    
+
     context "Conjured" do
       it "quality decreases twice as fast as normal items" do
         @gilded_rose.check_item
